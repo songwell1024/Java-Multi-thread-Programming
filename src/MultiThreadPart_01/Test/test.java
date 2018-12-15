@@ -1,5 +1,6 @@
 package MultiThreadPart_01.Test;
 
+import MultiThreadPart_01.ExtoObject.MyList;
 import MultiThreadPart_01.ExtoObject.MyObject;
 import MultiThreadPart_01.MyThread.*;
 
@@ -28,7 +29,9 @@ public class test {
 //        countThread();
 //        exThread();
 //        interputedThread();
-        MethodTest();
+//        MethodTest();
+//        test1();
+        testService();
     }
 
     public static void myRunnable(){
@@ -92,5 +95,29 @@ public class test {
         threadB.setName("B");
         threadB.start();
 
+    }
+
+    public static void test1(){
+        try{
+            Object object = new Object();
+            MyList myList = new MyList();
+            ThreadB threadB = new ThreadB(object,myList);
+            threadB.start();
+            Thread.sleep(50);
+
+            ThreadA threadA = new ThreadA(object,myList);
+            threadA.start();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void testService(){
+        Object lock = new Object();
+        ServiceThreadA serviceThreadA = new ServiceThreadA(lock);
+        serviceThreadA.start();
+        ServiceThreadB serviceThreadB = new ServiceThreadB(lock);
+        serviceThreadB.start();
     }
 }
